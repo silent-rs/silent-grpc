@@ -8,11 +8,12 @@ async-trait = "0.1"
 chrono = { version = "0.4", features = ["clock"] }
 prost = "0.14"
 scru128 = "3"
-silent = { path = "./silent/silent", features = ["grpc"] }
+silent = { path = "./silent/silent", default-features = false, features = ["server", "grpc"] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "time"] }
 tokio-stream = "0.1"
-tonic = { version = "0.14", features = ["transport"] }
+tonic = { version = "0.14", default-features = false, features = ["codegen", "transport"] }
 tonic-prost = "0.14"
+tonic-reflection = "0.14"
 
 [build-dependencies]
 tonic-prost-build = "0.14"

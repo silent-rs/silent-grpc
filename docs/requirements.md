@@ -14,6 +14,7 @@ silent-grpc 需要基于 Silent 框架实现完整的 gRPC 服务端，聚焦 HT
   - [x] Client Streaming：实现 `LotsOfGreetings` 方法，客户端上传多条消息后返回汇总。
   - [x] Bidirectional Streaming：实现 `BidiHello` 方法，支持全双工交互。
 - [x] 提供一个简单的命令行客户端示例，用于互通验证。
+- [x] 支持 gRPC Reflection，便于 `grpcurl` 等工具自动发现服务。
 
 ## 非功能需求
 
@@ -31,6 +32,7 @@ silent-grpc 需要基于 Silent 框架实现完整的 gRPC 服务端，聚焦 HT
 | Server Streaming        | ✅ 已实现 |
 | Client Streaming        | ✅ 已实现 |
 | Bidirectional Streaming | ✅ 已实现 |
+| gRPC Reflection         | ✅ 已实现 |
 | TLS 支持                | ❌ 未计划 |
 | 拦截器与中间件          | ❌ 未计划 |
 | 负载均衡                | ❌ 未计划 |
