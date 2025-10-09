@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package helloworld;
+
+option go_package = "github.com/silent-rs/silent-grpc/helloworld";
+
+service Greeter {
+  // 单次请求响应
+  rpc SayHello(HelloRequest) returns (HelloReply);
+  // 服务端流式响应
+  rpc LotsOfReplies(HelloRequest) returns (stream HelloReply);
+  // 客户端流式请求
+  rpc LotsOfGreetings(stream HelloRequest) returns (HelloSummary);
+  // 双向流式通信
+  rpc BidiHello(stream HelloRequest) returns (stream HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string id = 1;
+  string message = 2;
+  string created_at = 3;
+}
+
+message HelloSummary {
+  string id = 1;
+  uint32 total = 2;
+  repeated string names = 3;
+  string created_at = 4;
+}
