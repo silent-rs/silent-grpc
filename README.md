@@ -34,19 +34,52 @@ src/
 - `handler.rs` 包含业务请求处理逻辑。
 - `client.rs` 用于测试客户端调用，验证互通性。
 
-## 使用示例
+## 使用说明
 
-编译并启动服务：
+### 启动服务端
 
 ```bash
 cargo run
 ```
 
-启动后，可以使用 `grpcurl` 或官方 gRPC 客户端进行调用，例如：
+服务默认监听 `0.0.0.0:50051`，启动日志会输出当前监听地址。根路由会返回健康检查信息，其余 gRPC 方法由 `Greeter` 服务提供。
+
+### 内置客户端验证
+
+项目附带一个简单的命令行客户端，涵盖四种 RPC 调用方式：
+
+```bash
+cargo run -- --client
+```
+
+执行后可在终端观察 Unary、服务端流、客户端流以及双向流的示例输出。
+
+### 使用 grpcurl
+
+服务端已开启 gRPC Reflection，可直接使用 `grpcurl` 探测并调用接口。例如：
 
 ```bash
 grpcurl -plaintext -d '{"name":"Silent"}' localhost:50051 helloworld.Greeter/SayHello
 ```
+
+其他方法同理，例如：
+
+- 服务端流式响应：
+
+  ```bash
+  grpcurl -plaintext -d '{"name":"Streaming"}' localhost:50051 helloworld.Greeter/LotsOfReplies
+  ```
+
+- 客户端流与双向流可通过 `-d @` 进入交互模式：
+
+  ```bash
+  grpcurl -plaintext -d @ localhost:50051 helloworld.Greeter/LotsOfGreetings <<'EOF'
+  {"name":"Alice"}
+  {"name":"Bob"}
+  {"name":"Charlie"}
+
+  EOF
+  ```
 
 ## 测试与性能评测
 
@@ -63,13 +96,14 @@ grpcurl -plaintext -d '{"name":"Silent"}' localhost:50051 helloworld.Greeter/Say
 
 | 功能                    | 状态 |
 | ----------------------- | ---- |
-| Unary RPC               | ✅    |
-| Protobuf 编解码         | ✅    |
-| Server Streaming        | 🚧    |
-| Client Streaming        | 🚧    |
-| Bidirectional Streaming | 🚧    |
-| TLS 支持                | ❌    |
-| 拦截器与中间件          | ❌    |
-| 负载均衡                | ❌    |
+| Unary RPC               | ✅ 已完成 |
+| Protobuf 编解码         | ✅ 已完成 |
+| Server Streaming        | ✅ 已完成 |
+| Client Streaming        | ✅ 已完成 |
+| Bidirectional Streaming | ✅ 已完成 |
+| gRPC Reflection         | ✅ 已完成 |
+| TLS 支持                | ✅ 已完成 |
+| 拦截器与中间件          | ✅ 已完成 |
+| 负载均衡                | ❌ 未计划 |
 
 我们将持续迭代完善，逐步支持更多功能。

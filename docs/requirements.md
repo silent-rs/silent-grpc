@@ -33,8 +33,8 @@ silent-grpc 需要基于 Silent 框架实现完整的 gRPC 服务端，聚焦 HT
 | Client Streaming        | ✅ 已实现 |
 | Bidirectional Streaming | ✅ 已实现 |
 | gRPC Reflection         | ✅ 已实现 |
-| TLS 支持                | ❌ 未计划 |
-| 拦截器与中间件          | ❌ 未计划 |
+| TLS 支持                | ✅ 已实现 |
+| 拦截器与中间件          | ✅ 已实现 |
 | 负载均衡                | ❌ 未计划 |
 
 > 注：状态标记基于现有代码库存，需随实现进度更新。
